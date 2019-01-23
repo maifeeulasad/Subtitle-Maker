@@ -1,0 +1,99 @@
+﻿<Window x:Class="Subtitle_Generator__Dot_NEt_.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Subtitle_Generator__Dot_NEt_"
+        mc:Ignorable="d"
+        Title="MainWindow"
+		Height="450" 
+		Width="800"
+		ResizeMode="NoResize"
+		AllowDrop="True"
+		Drop="Window_Drop"
+		>
+
+
+	<Window.Resources>
+		<Image x:Key="playImg" Source="F:/c_sharp/subtitle_generator_desktop/Subtitle Generator (Dot NEt)/Resources/PLAY.png"/>
+		<Image x:Key="pauseImg" Source="F:/c_sharp/subtitle_generator_desktop/Subtitle Generator (Dot NEt)/Resources/PAUSE.png"/>
+		<Image x:Key="startImg" Source="F:/c_sharp/subtitle_generator_desktop/Subtitle Generator (Dot NEt)/Resources/RESET.png"/>
+		<Image x:Key="endImg" Source="F:/c_sharp/subtitle_generator_desktop/Subtitle Generator (Dot NEt)/Resources/END.png"/>
+		<Image x:Key="stopImg" Source="F:/c_sharp/subtitle_generator_desktop/Subtitle Generator (Dot NEt)/Resources/STOP.png"/>
+		<Image x:Key="openImg" Source="F:/c_sharp/subtitle_generator_desktop/Subtitle Generator (Dot NEt)/Resources/OPEN.png"/>
+		<Style x:Key="playBtnStyle" TargetType="Button">
+			<Setter Property="Content" Value="{StaticResource playImg}"/>
+			<Setter Property="Width" Value="25"/>
+			<Setter Property="Background" Value="White"/>
+			<Setter Property="BorderBrush" Value="White"/>
+		</Style>
+		<Style BasedOn="{StaticResource playBtnStyle}" x:Key="pauseBtnStyle" TargetType="Button">
+			<Setter Property="Content" Value="{StaticResource pauseImg}"/>
+		</Style>
+		<Style BasedOn="{StaticResource playBtnStyle}" x:Key="startBtnStyle" TargetType="Button">
+			<Setter Property="Content" Value="{StaticResource startImg}"/>
+		</Style>
+		<Style BasedOn="{StaticResource playBtnStyle}" x:Key="endBtnStyle" TargetType="Button">
+			<Setter Property="Content" Value="{StaticResource endImg}"/>
+		</Style>
+		<Style BasedOn="{StaticResource playBtnStyle}" x:Key="stopBtnStyle" TargetType="Button">
+			<Setter Property="Content" Value="{StaticResource stopImg}"/>
+		</Style>
+		<Style BasedOn="{StaticResource playBtnStyle}" x:Key="openBtnStyle" TargetType="Button">
+			<Setter Property="Content" Value="{StaticResource openImg}"/>
+		</Style>
+	</Window.Resources>
+	<DockPanel>
+		<StackPanel DockPanel.Dock="Bottom" Orientation="Vertical">
+			<ProgressBar Name="_positionProgress" Height="15"  MouseDown="Progress_MouseDown">
+				<ProgressBar.Foreground>
+					<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+						<GradientStop Color="#FF43B800" Offset="1"/>
+						<GradientStop Color="#FFCDFB00"/>
+					</LinearGradientBrush>
+				</ProgressBar.Foreground>
+			</ProgressBar>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+				<Button Style="{StaticResource openBtnStyle}" Click="Open_Click"/>
+				<Canvas Width="5"/>
+				<Button Name="_playButton" Style="{StaticResource playBtnStyle}" Click="PlayStop_Click"/>
+				<Canvas Width="5"/>
+				<Button Name="_stopButton" Style="{StaticResource stopBtnStyle}" Click="StopClick"/>
+				<Canvas Width="5"/>
+				<Button Name="_Start_Button" Style="{StaticResource startBtnStyle}" Click="StartClick"/>
+				<Canvas Width="5"/>
+				<Button Name="_End_Button" Style="{StaticResource endBtnStyle}" Click="EndClick"/>
+				<Canvas Width="20"/>
+				<Label Content="Volume:"/>
+				<Slider Name="_Slider" Width="100" Value="5" Orientation="Horizontal" ValueChanged="Slider_ValueChanged" Foreground="#FF919191"/>
+				<TextBox x:Name="_Time" Width="100" />
+				<!-- <TextBox x:Name="_subPPPP" Width="327"></TextBox> -->
+			</StackPanel>
+		</StackPanel>
+		<MediaElement Name="_media" LoadedBehavior="Manual" MediaOpened="_mediaOpened" Height="375" VerticalAlignment="Top" HorizontalAlignment="Left" Width="600"/>
+
+
+		<StackPanel Orientation="Vertical">
+			<Button Content="Save In File" Name="_save" Click="_save_Click"></Button>
+			<Button Content="Preview Segment" Click="Preview_Button_Click"></Button>
+			<Button Content="Set" Click="Set_Button_Click"></Button>
+
+			<TextBox IsReadOnly="True" Text="Starting Time :"></TextBox>
+			<TextBox Name="_st" Text="00:00:00.000" TextChanged="_st_TextChanged"></TextBox>
+
+			<TextBox IsReadOnly="True" Text="Ending Time :"></TextBox>
+			<TextBox Name="_ft" Text="00:00:00.000" TextChanged="_ft_TextChanged"></TextBox>
+
+			<!--
+			<TextBox Text="Slider to change value :"></TextBox>
+			<Slider ></Slider>
+			-->
+			<TextBox IsReadOnly="True" Text="Please enter sub-title below :"></TextBox>
+			<RichTextBox HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Name="_sub" BorderThickness="2" Margin="0,0,0,125" Height="245" />
+		</StackPanel>
+
+
+		
+	</DockPanel>
+
+</Window>
